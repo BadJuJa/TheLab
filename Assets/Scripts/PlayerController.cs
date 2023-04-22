@@ -6,22 +6,24 @@ public class PlayerController : MonoBehaviour
 {
     Animator animator;
     Rigidbody body;
+    CapsuleCollider mainCollider;
+    BoxCollider slideCollider;
 
     Vector3 startGamePosition;
     Quaternion startGameRotation;
-    Vector3 targetVelocity;
 
     float pointStart;
     float pointFinish;
-
-    [SerializeField]
-    private float laneOffset = 2.5f;
+    private float laneOffset;
+    
     [SerializeField]
     private float laneChangeSpeed = 15f;
+    
     [SerializeField]
-    private float jumpForce = 15f;
+    private float jumpForce = 10f;
     [SerializeField]
-    private float jumpGravity = -20;
+    private float jumpGravityBase = -20;
+    private float jumpGravity => jumpGravityBase * (0.875f + SectionGenerator.Instance.speed / 40f);
 
     private bool isMoving = false;
     private bool isJumping = false;
@@ -33,17 +35,15 @@ public class PlayerController : MonoBehaviour
     Coroutine moveCoroutine;
     private void Start()
     {
+        laneOffset = MapGenerator.Instance.laneOffset;
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody>();
+        mainCollider = GetComponent<CapsuleCollider>();
+        slideCollider = GetComponent<BoxCollider>();
         startGamePosition = transform.position;
         startGameRotation = transform.rotation;
 
-        SwipeManager.instance.SwipeEvent += MovePlayer;
-    }
-
-    private void Update()
-    {
-        
+        SwipeManager.Instance.SwipeEvent += MovePlayer;
     }
 
     private void Jump()
@@ -52,6 +52,21 @@ public class PlayerController : MonoBehaviour
         body.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         Physics.gravity = new Vector3(0, jumpGravity, 0);
         StartCoroutine(StopJumpCoroutine());
+    }
+
+    public void StartSlide()
+    {
+        slideCollider.enabled = true;
+        mainCollider.enabled = false;
+    }
+    public void EndSlide()
+    {
+        mainCollider.enabled = true;
+        slideCollider.enabled = false;
+    }
+    private void Slide()
+    {
+        animator.SetTrigger("Slide");
     }
 
     private void MovePlayer(bool[] swipes)
@@ -69,9 +84,17 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        if (swipes[(int)SwipeManager.Direction.Down] && isJumping == false)
+        if (swipes[(int)SwipeManager.Direction.Down])
         {
-            //Slide();
+            if (isJumping)
+            {
+                body.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
+            }
+            else
+            {
+                Slide();
+            }
+            
         }
     }
 
@@ -123,13 +146,13 @@ public class PlayerController : MonoBehaviour
 
     public void StartGame()
     {
-        if (SectionGenerator.instance.isRunning) return;
+        if (SectionGenerator.Instance.isRunning) return;
         animator.SetTrigger("Run");
     }
 
     public void StartRun()
     {
-        SectionGenerator.instance.StartLevel();
+        SectionGenerator.Instance.StartLevel();
         animator.applyRootMotion = false;
     }
 
@@ -142,7 +165,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Idle");
         transform.position = startGamePosition;
         transform.rotation = startGameRotation;
-        SectionGenerator.instance.ResetLevel();
+        SectionGenerator.Instance.ResetLevel();
     }
 
     private void OnTriggerEnter(Collider other)

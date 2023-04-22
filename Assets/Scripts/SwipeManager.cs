@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SwipeManager : MonoBehaviour
+public class SwipeManager : MonoBehaviourSingleton<SwipeManager>
 {
-    public static SwipeManager instance;
-
     public delegate void SwipeDelegate(bool[] swipes);
     public SwipeDelegate SwipeEvent;
 
@@ -26,12 +24,6 @@ public class SwipeManager : MonoBehaviour
     bool TouchBegan() { return Input.GetMouseButtonDown(0); }
     bool TouchEnded() { return Input.GetMouseButtonUp(0); }
     bool GetTouch() { return Input.GetMouseButton(0); }
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
 
     private void Update()
     {
@@ -79,12 +71,10 @@ public class SwipeManager : MonoBehaviour
     {
         if (swipe[0] || swipe[1] || swipe[2] || swipe[3])
         {
-            Debug.Log(swipe[0] + "|" + swipe[1] + "|" + swipe[2] + "|" + swipe[3]);
             SwipeEvent?.Invoke(swipe);
         }
         else
         {
-            Debug.Log("Click");
         }
         Reset();
     }

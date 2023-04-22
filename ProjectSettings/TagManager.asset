@@ -8,6 +8,7 @@ TagManager:
   - RampPlane
   - Bounce
   - Lose
+  - SafeJump
   layers:
   - Default
   - TransparentFX

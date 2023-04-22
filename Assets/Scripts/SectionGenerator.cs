@@ -2,22 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SectionGenerator : MonoBehaviour
+public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
 {
     public bool isRunning { get; private set; }
 
-    public float offset = 10;
-    public float deletePoint = -15;
+    public float offset = 20;
+    public float deletePoint = -20;
 
     public GameObject sectionPrefab;
     private List<GameObject> sections = new();
-    public float maxSpeed = 10f;
-    private float speed = 0;
+
+    [SerializeField]
+    private float minSpeed = 5f;
+    [SerializeField]
+    private float maxSpeed = 20f;
+    [SerializeField]
+    private float speedIncrement = 1f;
+    
+    public float speed { get; private set; }
 
     public int maxSectionCount = 5;
-
-    public static SectionGenerator instance;
-    void Awake() { instance = this; }
 
     private void Start()
     {
@@ -41,6 +45,9 @@ public class SectionGenerator : MonoBehaviour
 
             CreateNextSection();
         }
+
+        if (speed < maxSpeed)
+            speed += speedIncrement * Time.deltaTime;
     }
 
     public void CreateNextSection()
@@ -57,8 +64,8 @@ public class SectionGenerator : MonoBehaviour
     public void StartLevel()
     {
         isRunning = true;
-        speed = maxSpeed;
-        SwipeManager.instance.enabled = true;
+        speed = minSpeed;
+        SwipeManager.Instance.enabled = true;
     }
     public void ResetLevel()
     {
@@ -74,6 +81,7 @@ public class SectionGenerator : MonoBehaviour
         {
             CreateNextSection();
         }
-        SwipeManager.instance.enabled = false;
+        SwipeManager.Instance.enabled = false;
+        MapGenerator.Instance.ResetMaps();
     }
 }
