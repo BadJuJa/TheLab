@@ -137,7 +137,7 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
         {
             for (int i = -coinsCountInItem / 2; i < coinsCountInItem / 2; i++)
             {
-                coinPos.y = Mathf.Max(-1/2f * Mathf.Pow(i,2), coinsHeight);
+                coinPos.y = Mathf.Max(-1/2f * Mathf.Pow(i,2) + 3, coinsHeight);
                 coinPos.z = i * ((float)itemSpace / coinsCountInItem);
                 GameObject go = Instantiate(coinPrefab, coinPos + pos, Quaternion.identity);
                 go.transform.SetParent(parentObject.transform);

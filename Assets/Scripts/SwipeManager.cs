@@ -11,6 +11,8 @@ public class SwipeManager : MonoBehaviourSingleton<SwipeManager>
     public delegate void ClickDelegate(Vector2 position);
     public ClickDelegate ClickEvent;
 
+    public bool canSendSwipe = false;
+
     public enum Direction { Left, Right, Up, Down };
     bool[] swipe = new bool[4];
 
@@ -69,12 +71,17 @@ public class SwipeManager : MonoBehaviourSingleton<SwipeManager>
 
     private void SendSwipe()
     {
+        Debug.Log("SWIPED");
         if (swipe[0] || swipe[1] || swipe[2] || swipe[3])
         {
-            SwipeEvent?.Invoke(swipe);
+            if (canSendSwipe) SwipeEvent?.Invoke(swipe);
         }
         else
         {
+            ClickEvent?.Invoke(Vector3.zero);
+            Debug.Log("CLICKED");
+            if (GameManager.Instance.gameStarted) return;
+            GameManager.Instance.StartGame();
         }
         Reset();
     }

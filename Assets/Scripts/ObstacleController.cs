@@ -9,8 +9,8 @@ public class ObstacleController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if (!CanSafeJump)
-                other.gameObject.GetComponent<PlayerController>().ResetGame();
+
+            GameManager.Instance.GameOver();
         }
     }
 }

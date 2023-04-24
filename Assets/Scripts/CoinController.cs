@@ -20,6 +20,7 @@ public class CoinController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             transform.parent.gameObject.SetActive(false);
+            GameManager.Instance.AddCoin();
         }
     }
 }

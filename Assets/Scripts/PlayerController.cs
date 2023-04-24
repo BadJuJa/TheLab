@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
         startGameRotation = transform.rotation;
 
         SwipeManager.Instance.SwipeEvent += MovePlayer;
+        GameManager.Instance.OnResetGame += ResetGame;
+        GameManager.Instance.OnStartGame += () => animator.SetTrigger("Run");
     }
 
     private void Jump()
@@ -144,12 +146,6 @@ public class PlayerController : MonoBehaviour
         Physics.gravity = defaultGravity;
     }
 
-    public void StartGame()
-    {
-        if (SectionGenerator.Instance.isRunning) return;
-        animator.SetTrigger("Run");
-    }
-
     public void StartRun()
     {
         SectionGenerator.Instance.StartLevel();
@@ -165,7 +161,6 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Idle");
         transform.position = startGamePosition;
         transform.rotation = startGameRotation;
-        SectionGenerator.Instance.ResetLevel();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -174,10 +169,6 @@ public class PlayerController : MonoBehaviour
         if (tag == "RampTrigger")
         {
             body.constraints |= RigidbodyConstraints.FreezePositionZ;
-        }
-        if (tag == "Lose")
-        {
-            ResetGame();
         }
     }
 

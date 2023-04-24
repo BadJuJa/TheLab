@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
 {
-    public bool isRunning { get; private set; }
-
     public float offset = 20;
     public float deletePoint = -20;
 
@@ -26,7 +24,8 @@ public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
     private void Start()
     {
         ResetLevel();
-        //StartLevel();
+
+        GameManager.Instance.OnResetGame += ResetLevel;
     }
 
     private void Update()
@@ -57,19 +56,17 @@ public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
         GameObject go = Instantiate(sectionPrefab, pos, Quaternion.identity);
         go.transform.SetParent(transform);
         sections.Add(go);
-        
     }
 
 
     public void StartLevel()
     {
-        isRunning = true;
         speed = minSpeed;
-        SwipeManager.Instance.enabled = true;
+        //SwipeManager.Instance.enabled = true;
+        SwipeManager.Instance.canSendSwipe = true;
     }
     public void ResetLevel()
     {
-        isRunning = false;
         speed = 0;
         while(sections.Count > 0)
         {
@@ -81,7 +78,8 @@ public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
         {
             CreateNextSection();
         }
-        SwipeManager.Instance.enabled = false;
+        //SwipeManager.Instance.enabled = false;
+        SwipeManager.Instance.canSendSwipe = false;
         MapGenerator.Instance.ResetMaps();
     }
 }
