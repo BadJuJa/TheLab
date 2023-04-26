@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
@@ -9,8 +8,7 @@ using UnityEngine.SceneManagement;
 // Staggart Creations http://staggart.xyz
 // Copyright protected under Unity asset store EULA
 
-public sealed class ScreenshotUtility : EditorWindow
-{
+public sealed class ScreenshotUtility : EditorWindow {
     private static bool captureScene = false;
     private static bool captureGame = true;
 
@@ -26,66 +24,56 @@ public sealed class ScreenshotUtility : EditorWindow
     private static readonly string[] resolutionList = new string[] { "720p", "1080p", "1140p", "4K", "8K", "Custom..." };
 
     private AnimBool captureNotification;
-    
-    private static bool UseNativeCapture
-    {
+
+    private static bool UseNativeCapture {
         get { return EditorPrefs.GetBool(PlayerSettings.productName + "_SRCSHOT_UseNativeCapture", false); }
         set { EditorPrefs.SetBool(PlayerSettings.productName + "_SRCSHOT_UseNativeCapture", value); }
     }
-    
-    private static int Resolution
-    {
+
+    private static int Resolution {
         get { return EditorPrefs.GetInt(PlayerSettings.productName + "_SRCSHOT_RESOLUTION", 1); }
         set { EditorPrefs.SetInt(PlayerSettings.productName + "_SRCSHOT_RESOLUTION", value); }
     }
-    
+
     private static string[] aspectList = new string[] { "16:9", "21:9", "32:9" };
-    private static int AspectRatio
-    {
+    private static int AspectRatio {
         get { return EditorPrefs.GetInt(PlayerSettings.productName + "_SRCSHOT_ASPECT", 0); }
         set { EditorPrefs.SetInt(PlayerSettings.productName + "_SRCSHOT_ASPECT", value); }
     }
 
-    private static bool OpenAfterCapture
-    {
+    private static bool OpenAfterCapture {
         get { return EditorPrefs.GetBool(PlayerSettings.productName + "_SRCSHOT_OpenAfterCapture", true); }
         set { EditorPrefs.SetBool(PlayerSettings.productName + "_SRCSHOT_OpenAfterCapture", value); }
     }
 
-    private static string SavePath
-    {
+    private static string SavePath {
         get { return EditorPrefs.GetString(PlayerSettings.productName + "_SRCSHOT_DIR", Application.dataPath.Replace("Assets", "Screenshots/")); }
         set { EditorPrefs.SetString(PlayerSettings.productName + "_SRCSHOT_DIR", value); }
     }
 
-    private static string FileNameFormat
-    {
+    private static string FileNameFormat {
         get { return EditorPrefs.GetString(PlayerSettings.productName + "_SRCSHOT_FileNameFormat", "{S}_{R}_{D}_{T}"); }
         set { EditorPrefs.SetString(PlayerSettings.productName + "_SRCSHOT_FileNameFormat", value); }
     }
 
     private static string[] DateFormats = new string[] { "MM-dd-yyyy", "dd-MM-yyyy", "yyyy-MM-dd" };
-    private static int DateFormat
-    {
+    private static int DateFormat {
         get { return EditorPrefs.GetInt(PlayerSettings.productName + "_SRCSHOT_DateFormat", 1); }
         set { EditorPrefs.SetInt(PlayerSettings.productName + "_SRCSHOT_DateFormat", value); }
     }
 
     private static string[] TimeFormats = new string[] { "24 Hour", "AM-PM" };
-    private static int TimeFormat
-    {
+    private static int TimeFormat {
         get { return EditorPrefs.GetInt(PlayerSettings.productName + "_SRCSHOT_TimeFormat", 0); }
         set { EditorPrefs.SetInt(PlayerSettings.productName + "_SRCSHOT_TimeFormat", value); }
     }
 
-    private static bool OutputPNG
-    {
+    private static bool OutputPNG {
         get { return EditorPrefs.GetBool(PlayerSettings.productName + "_SRCSHOT_CMPRS", false); }
         set { EditorPrefs.SetBool(PlayerSettings.productName + "_SRCSHOT_CMPRS", value); }
     }
 
-    private static bool ListenToPrintButton
-    {
+    private static bool ListenToPrintButton {
         get { return EditorPrefs.GetBool(PlayerSettings.productName + "_SRCSHOT_PRINT_BTN", false); }
         set { EditorPrefs.SetBool(PlayerSettings.productName + "_SRCSHOT_PRINT_BTN", value); }
     }
@@ -127,7 +115,7 @@ public sealed class ScreenshotUtility : EditorWindow
         string fileName = FileNameFormat.Replace("{S}", GetSceneName());
         fileName = fileName.Replace("{P}", PlayerSettings.productName);
         fileName = fileName.Replace("{R}", resolutionList[resIndex]);
-        fileName = fileName.Replace("{D}", System.DateTime.Now.ToString(dateFormat).Replace("-", "." ));
+        fileName = fileName.Replace("{D}", System.DateTime.Now.ToString(dateFormat).Replace("-", "."));
         fileName = fileName.Replace("{T}", System.DateTime.Now.ToString(TimeFormat == 0 ? "HH-mm-ss" : "hh-mm-ss tt"));
         fileName = fileName.Replace("{U}", System.DateTime.Now.Ticks.ToString());
 
@@ -194,7 +182,7 @@ public sealed class ScreenshotUtility : EditorWindow
     private void OnSceneGUI(SceneView sceneView)
     {
         if (!ListenToPrintButton) return;
-        
+
         //Whenever print-screen button is pressed
         if (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.SysReq)
         {
@@ -210,8 +198,8 @@ public sealed class ScreenshotUtility : EditorWindow
         foreach (Camera cam in sceneCameras)
         {
             //Exclude hidden special purpose cameras
-            if(cam.gameObject.hideFlags != HideFlags.None) continue;
-            
+            if (cam.gameObject.hideFlags != HideFlags.None) continue;
+
             //Try to exclude any off-screen cameras
             if (cam.activeTexture != null && cam.hideFlags != HideFlags.None && !cam.enabled) continue;
 
@@ -230,11 +218,11 @@ public sealed class ScreenshotUtility : EditorWindow
     {
         switch (Resolution)
         {
-            case 0: 
+            case 0:
                 ssWidth = 1280;
                 ssHeight = 720;
                 break;
-            case 1: 
+            case 1:
                 ssWidth = 1920;
                 ssHeight = 1080;
                 break;
@@ -257,7 +245,7 @@ public sealed class ScreenshotUtility : EditorWindow
         //32:9
         if (AspectRatio == 2 && Resolution != resolutionList.Length - 1) ssWidth = Mathf.RoundToInt(ssWidth * 2f);
     }
-    
+
     private string iconPrefix => EditorGUIUtility.isProSkin ? "d_" : "";
     private readonly Color okColor = new Color(97f / 255f, 255f / 255f, 66f / 255f);
 
@@ -268,7 +256,7 @@ public sealed class ScreenshotUtility : EditorWindow
             EditorGUILayout.HelpBox("No active camera's in the scene", MessageType.Warning);
             return;
         }
-        
+
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         {
             EditorGUILayout.BeginHorizontal();
@@ -315,7 +303,7 @@ public sealed class ScreenshotUtility : EditorWindow
             }
         }
         EditorGUILayout.EndVertical();
-   
+
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         {
             if (!UseNativeCapture || captureScene)
@@ -348,7 +336,7 @@ public sealed class ScreenshotUtility : EditorWindow
             }
         }
         EditorGUILayout.EndVertical();
-        
+
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         {
             GUILayout.Label("Output folder", EditorStyles.boldLabel);
@@ -405,7 +393,7 @@ public sealed class ScreenshotUtility : EditorWindow
         {
             GUIStyle guiStyle = EditorStyles.label;
             Color defaultTextColor = GUI.contentColor;
-            
+
             //Personal skin
             if (EditorGUIUtility.isProSkin == false)
             {
@@ -414,7 +402,7 @@ public sealed class ScreenshotUtility : EditorWindow
 
                 GUI.skin.customStyles[0] = guiStyle;
             }
-            
+
             //Set
             if (EditorGUIUtility.isProSkin == false)
             {
@@ -424,10 +412,10 @@ public sealed class ScreenshotUtility : EditorWindow
             {
                 GUI.contentColor = okColor;
             }
-            
+
             //Draw
             EditorGUILayout.HelpBox(new GUIContent("  Screenshot saved", EditorGUIUtility.IconContent("d_FilterSelectedOnly").image), true);
-            
+
             //Restore
             if (EditorGUIUtility.isProSkin == false)
             {
@@ -452,11 +440,11 @@ public sealed class ScreenshotUtility : EditorWindow
 
         var useRenderTexture = !UseNativeCapture || captureScene;
         var forcePng = UseNativeCapture && !captureScene;
-        
+
         string filename = FormatFileName(Resolution, DateFormats[DateFormat]) + (forcePng || OutputPNG || transparency == true ? ".png" : ".jpg");
-        
+
         CheckFolderValidity(SavePath);
-        
+
         Vector3 originalPos = sourceCamera.transform.position;
         Quaternion originalRot = sourceCamera.transform.rotation;
         float originalFOV = sourceCamera.fieldOfView;
@@ -483,7 +471,7 @@ public sealed class ScreenshotUtility : EditorWindow
 #if CINEMACHINE
                 if (cBrain && cBrainEnable) cBrain.enabled = false;
 #endif
-                
+
                 sourceCamera.fieldOfView = SceneView.lastActiveSceneView.camera.fieldOfView;
                 sourceCamera.orthographic = SceneView.lastActiveSceneView.camera.orthographic;
                 sourceCamera.orthographicSize = SceneView.lastActiveSceneView.camera.orthographicSize;
@@ -500,7 +488,7 @@ public sealed class ScreenshotUtility : EditorWindow
             EditorApplication.ExecuteMenuItem("Window/General/Game");
 #endif
         }
-       
+
         string path = SavePath + "/" + filename;
 
         if (useRenderTexture)
@@ -511,7 +499,7 @@ public sealed class ScreenshotUtility : EditorWindow
         {
             CaptureFromNativeFunction(path);
         }
-        
+
         EditorUtility.DisplayProgressBar("Screenshot", "Saving file " + 3 + "/" + 3, 3f / 3f);
 
         //Native capturing is Async, so file may or may not exist yet
@@ -565,7 +553,7 @@ public sealed class ScreenshotUtility : EditorWindow
         sourceCamera.targetTexture = null;
         RenderTexture.active = null;
         DestroyImmediate(rt);
-        
+
         EditorUtility.DisplayProgressBar("Screenshot", "Encoding " + 2 + "/" + 3, 2f / 3f);
         byte[] bytes = (OutputPNG || transparency) ? screenShot.EncodeToPNG() : screenShot.EncodeToJPG();
 
@@ -588,25 +576,22 @@ public sealed class ScreenshotUtility : EditorWindow
         delayTime = (float)EditorApplication.timeSinceStartup + 1f;
         EditorApplication.update += EditorUpdate;
     }
-    
+
     private void EditorUpdate()
     {
         if (EditorApplication.timeSinceStartup >= delayTime)
         {
             EditorApplication.update -= EditorUpdate;
-           // this.Repaint();
+            // this.Repaint();
 
             captureNotification.target = false;
         }
     }
 
-    private class Styles
-    {
+    private class Styles {
         private static GUIStyle _PathField;
-        public static GUIStyle PathField
-        {
-            get
-            {
+        public static GUIStyle PathField {
+            get {
                 if (_PathField == null)
                 {
                     _PathField = new GUIStyle(GUI.skin.textField)
@@ -635,9 +620,9 @@ public sealed class ScreenshotUtility : EditorWindow
                 EditorGUILayout.HelpBox("When enabled, Unity's native screenshot functionality is used.\n\n" +
                                         "This captures an image as it truly appears on the screen. Including UI and older style image effects.\n\n" +
                                         "Only applies to the Game view. The screenshot will have the same aspect ratio and resolution as the Game view ", MessageType.Info);
-                
+
                 EditorGUILayout.Space();
-                
+
                 ListenToPrintButton = EditorGUILayout.ToggleLeft(new GUIContent("Listen for print-screen key press (Scene-view)", "If the window is open and the scene-view is active, capture a screenshot whenever the print-screen keyboard button is pressed"), ListenToPrintButton);
 
                 EditorGUILayout.Space();
@@ -645,7 +630,7 @@ public sealed class ScreenshotUtility : EditorWindow
                 EditorGUILayout.LabelField("File name", EditorStyles.boldLabel);
                 FileNameFormat = EditorGUILayout.TextField("File name format", FileNameFormat);
                 EditorGUILayout.HelpBox("{P} = Project name\n{S} = Scene name\n{R} = Resolution\n{D} = Date\n{T} = Time\n{U} = Unique number", MessageType.None);
-                
+
                 EditorGUILayout.Space();
 
                 DateFormat = EditorGUILayout.Popup("Date format", DateFormat, DateFormats, GUILayout.MaxWidth(250f));
@@ -653,7 +638,7 @@ public sealed class ScreenshotUtility : EditorWindow
                 EditorGUILayout.LabelField("Filename example: " + FormatFileName(1, DateFormats[DateFormat]), EditorStyles.miniLabel);
 
                 EditorGUILayout.Space();
-                
+
             },
 
             keywords = new HashSet<string>(new[] { "Screenshot" })

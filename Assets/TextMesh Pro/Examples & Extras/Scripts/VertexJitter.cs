@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 
-namespace TMPro.Examples
-{
+namespace TMPro.Examples {
 
-    public class VertexJitter : MonoBehaviour
-    {
+    public class VertexJitter : MonoBehaviour {
 
         public float AngleMultiplier = 1.0f;
         public float SpeedMultiplier = 1.0f;
@@ -18,8 +16,7 @@ namespace TMPro.Examples
         /// <summary>
         /// Structure to hold pre-computed animation data.
         /// </summary>
-        private struct VertexAnim
-        {
+        private struct VertexAnim {
             public float angleRange;
             public float angle;
             public float speed;

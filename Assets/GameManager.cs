@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviourSingleton<GameManager>
-{
+public class GameManager : MonoBehaviourSingleton<GameManager> {
     public delegate void StartGameDelegate();
     public event StartGameDelegate OnStartGame;
 

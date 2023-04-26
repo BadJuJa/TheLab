@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feae851b158a7e94d895d92d96b9560b, type: 3}
+  m_Name: Map1
+  m_EditorClassIdentifier: 
+  Name: Map
+  itemSpace: 15
+  rows:
+  - left:
+      obstacle: {fileID: 3070024448291409869, guid: bf7261a90ec283f458b08694e6c45d76, type: 3}
+      trackPos: -1
+      coinStyle: 0
+    center:
+      obstacle: {fileID: 5567496368643570814, guid: b04bdf7d59dc25547a608ab8bc1e6d5a, type: 3}
+      trackPos: 0
+      coinStyle: 1
+    right:
+      obstacle: {fileID: 8919883579409907710, guid: 4112600d688573d4dae7a7d6d1cb81d9, type: 3}
+      trackPos: 1
+      coinStyle: 2
+  - left:
+      obstacle: {fileID: 8919883579409907710, guid: 4112600d688573d4dae7a7d6d1cb81d9, type: 3}
+      trackPos: -1
+      coinStyle: 2
+    center:
+      obstacle: {fileID: 3070024448291409869, guid: bf7261a90ec283f458b08694e6c45d76, type: 3}
+      trackPos: 0
+      coinStyle: 0
+    right:
+      obstacle: {fileID: 5567496368643570814, guid: b04bdf7d59dc25547a608ab8bc1e6d5a, type: 3}
+      trackPos: 1
+      coinStyle: 1
+  - left:
+      obstacle: {fileID: 100581475939898503, guid: ad97725f0e4ba5c4a9ade7ea4cb1035e, type: 3}
+      trackPos: -1
+      coinStyle: 0
+    center:
+      obstacle: {fileID: 5567496368643570814, guid: b04bdf7d59dc25547a608ab8bc1e6d5a, type: 3}
+      trackPos: 0
+      coinStyle: 1
+    right:
+      obstacle: {fileID: 8919883579409907710, guid: 4112600d688573d4dae7a7d6d1cb81d9, type: 3}
+      trackPos: 1
+      coinStyle: 2
+  - left:
+      obstacle: {fileID: 5567496368643570814, guid: b04bdf7d59dc25547a608ab8bc1e6d5a, type: 3}
+      trackPos: -1
+      coinStyle: 1
+    center:
+      obstacle: {fileID: 3070024448291409869, guid: bf7261a90ec283f458b08694e6c45d76, type: 3}
+      trackPos: 0
+      coinStyle: 0
+    right:
+      obstacle: {fileID: 100581475939898503, guid: ad97725f0e4ba5c4a9ade7ea4cb1035e, type: 3}
+      trackPos: 1
+      coinStyle: 0

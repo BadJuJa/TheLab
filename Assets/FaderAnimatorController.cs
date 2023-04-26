@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FaderAnimatorController : MonoBehaviourSingleton<FaderAnimatorController>
-{
+public class FaderAnimatorController : MonoBehaviourSingleton<FaderAnimatorController> {
     public UIManager.UI_STATE state;
 
     //[SerializeField]
@@ -18,7 +15,7 @@ public class FaderAnimatorController : MonoBehaviourSingleton<FaderAnimatorContr
     {
         //GameManager.Instance.OnStartGame += FadeIn;
         GameManager.Instance.OnResetGame += FadeIn;
-        if (state == UIManager.UI_STATE.Main) SwipeManager.Instance.ClickEvent += (Vector3) => FadeOut();
+        if (state == UIManager.UI_STATE.Main) SwipeManager.Instance.ClickEvent += (v) => FadeOut();
     }
 
     public void FadeIn()
@@ -26,18 +23,19 @@ public class FaderAnimatorController : MonoBehaviourSingleton<FaderAnimatorContr
         //Time.timeScale = 1f;
         if (faderAnimator.GetBool("IsFading")) return;
         faderAnimator.SetTrigger("Fade_In");
-        IsFading(1);
+        //IsFading(1);
         //faderAnimator.SetBool("IsFading", true);
     }
     public void FadeOut()
     {
         //Time.timeScale = 1f;
+        //print("FADE OUT");
         if (faderAnimator.GetBool("IsFading")) return;
         faderAnimator.SetTrigger("Fade_Out");
-        IsFading(1);
+        //IsFading(1);
         //faderAnimator.SetBool("IsFading", true);
     }
-    
+
     public void FadeTo()
     {
         if (state == UIManager.UI_STATE.Main)
@@ -48,7 +46,7 @@ public class FaderAnimatorController : MonoBehaviourSingleton<FaderAnimatorContr
         {
             UIManager.Instance.ResetGame();
         }
-        IsFading(0);
+        //IsFading(0);
         //faderAnimator.SetBool("IsFading", false);
     }
 

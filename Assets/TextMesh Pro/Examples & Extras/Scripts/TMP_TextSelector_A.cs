@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 
-namespace TMPro.Examples
-{
+namespace TMPro.Examples {
 
-    public class TMP_TextSelector_A : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-    {
+    public class TMP_TextSelector_A : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         private TextMeshPro m_TextMeshPro;
 
         private Camera m_Camera;

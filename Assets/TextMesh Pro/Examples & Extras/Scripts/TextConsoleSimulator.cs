@@ -1,11 +1,9 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 
-namespace TMPro.Examples
-{
-    public class TextConsoleSimulator : MonoBehaviour
-    {
+namespace TMPro.Examples {
+    public class TextConsoleSimulator : MonoBehaviour {
         private TMP_Text m_TextComponent;
         private bool hasTextChanged;
 
@@ -59,7 +57,7 @@ namespace TMPro.Examples
                 if (hasTextChanged)
                 {
                     totalVisibleCharacters = textInfo.characterCount; // Update visible character count.
-                    hasTextChanged = false; 
+                    hasTextChanged = false;
                 }
 
                 if (visibleCount > totalVisibleCharacters)

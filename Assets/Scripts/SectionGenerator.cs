@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
-{
+public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator> {
     public float offset = 20;
     public float deletePoint = -20;
 
@@ -16,13 +14,15 @@ public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
     private float maxSpeed = 20f;
     [SerializeField]
     private float speedIncrement = 1f;
-    
+
     public float speed { get; private set; }
 
     public int maxSectionCount = 5;
 
     private void Start()
     {
+        PoolManager.Instance.Preload(sectionPrefab, 15);
+
         ResetLevel();
 
         GameManager.Instance.OnResetGame += ResetLevel;
@@ -39,7 +39,7 @@ public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
 
         if (sections[0].transform.position.z < deletePoint)
         {
-            Destroy(sections[0]);
+            PoolManager.Instance.Despawn(sections[0]);
             sections.RemoveAt(0);
 
             CreateNextSection();
@@ -53,7 +53,7 @@ public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
     {
         Vector3 pos = Vector3.zero;
         if (sections.Count > 0) { pos = sections[sections.Count - 1].transform.position + new Vector3(0, 0, offset); }
-        GameObject go = Instantiate(sectionPrefab, pos, Quaternion.identity);
+        GameObject go = PoolManager.Instance.Spawn(sectionPrefab, pos, Quaternion.identity);
         go.transform.SetParent(transform);
         sections.Add(go);
     }
@@ -68,7 +68,7 @@ public class SectionGenerator : MonoBehaviourSingleton<SectionGenerator>
     public void ResetLevel()
     {
         speed = 0;
-        while(sections.Count > 0)
+        while (sections.Count > 0)
         {
             Destroy(sections[0]);
             sections.RemoveAt(0);

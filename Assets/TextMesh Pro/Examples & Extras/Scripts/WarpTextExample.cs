@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 
-namespace TMPro.Examples
-{
+namespace TMPro.Examples {
 
-    public class WarpTextExample : MonoBehaviour
-    {
+    public class WarpTextExample : MonoBehaviour {
 
         private TMP_Text m_TextComponent;
 

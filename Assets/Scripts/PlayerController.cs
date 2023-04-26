@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     Animator animator;
     Rigidbody body;
     CapsuleCollider mainCollider;
@@ -15,10 +13,10 @@ public class PlayerController : MonoBehaviour
     float pointStart;
     float pointFinish;
     private float laneOffset;
-    
+
     [SerializeField]
     private float laneChangeSpeed = 15f;
-    
+
     [SerializeField]
     private float jumpForce = 10f;
     [SerializeField]
@@ -27,9 +25,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isMoving = false;
     private bool isJumping = false;
-    
+
     private float lastVectorX;
-    
+
     private Vector3 defaultGravity = new Vector3(0, -9.81f, 0);
 
     Coroutine moveCoroutine;
@@ -73,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer(bool[] swipes)
     {
-        
+
         if (swipes[(int)SwipeManager.Direction.Left] && pointFinish > -laneOffset)
         {
             MoveHorizontal(-laneChangeSpeed);
@@ -96,7 +94,7 @@ public class PlayerController : MonoBehaviour
             {
                 Slide();
             }
-            
+
         }
     }
 
@@ -104,7 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         pointStart = pointFinish;
         pointFinish += Mathf.Sign(speed) * laneOffset;
-        
+
         if (isMoving)
         {
             StopCoroutine(moveCoroutine);

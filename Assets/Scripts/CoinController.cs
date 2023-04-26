@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinController : MonoBehaviour
-{
+public class CoinController : MonoBehaviour {
     float rotationSpeed = 100;
     private void Start()
     {

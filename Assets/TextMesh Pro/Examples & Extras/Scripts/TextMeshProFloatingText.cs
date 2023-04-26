@@ -1,12 +1,10 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 
-namespace TMPro.Examples
-{
+namespace TMPro.Examples {
 
-    public class TextMeshProFloatingText : MonoBehaviour
-    {
+    public class TextMeshProFloatingText : MonoBehaviour {
         public Font TheFont;
 
         private GameObject m_floatingText;

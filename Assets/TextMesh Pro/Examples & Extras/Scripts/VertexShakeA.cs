@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 
-namespace TMPro.Examples
-{
+namespace TMPro.Examples {
 
-    public class VertexShakeA : MonoBehaviour
-    {
+    public class VertexShakeA : MonoBehaviour {
 
         public float AngleMultiplier = 1.0f;
         public float SpeedMultiplier = 1.0f;

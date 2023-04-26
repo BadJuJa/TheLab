@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SwipeManager : MonoBehaviourSingleton<SwipeManager>
-{
+public class SwipeManager : MonoBehaviourSingleton<SwipeManager> {
     public delegate void SwipeDelegate(bool[] swipes);
     public SwipeDelegate SwipeEvent;
 
@@ -71,7 +68,6 @@ public class SwipeManager : MonoBehaviourSingleton<SwipeManager>
 
     private void SendSwipe()
     {
-        Debug.Log("SWIPED");
         if (swipe[0] || swipe[1] || swipe[2] || swipe[3])
         {
             if (canSendSwipe) SwipeEvent?.Invoke(swipe);
@@ -79,7 +75,6 @@ public class SwipeManager : MonoBehaviourSingleton<SwipeManager>
         else
         {
             ClickEvent?.Invoke(Vector3.zero);
-            Debug.Log("CLICKED");
             if (GameManager.Instance.gameStarted) return;
             GameManager.Instance.StartGame();
         }

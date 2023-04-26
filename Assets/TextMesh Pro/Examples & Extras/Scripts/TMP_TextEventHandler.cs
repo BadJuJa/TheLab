@@ -1,14 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using System;
 
 
-namespace TMPro
-{
+namespace TMPro {
 
-    public class TMP_TextEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-    {
+    public class TMP_TextEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         [Serializable]
         public class CharacterSelectionEvent : UnityEvent<char, int> { }
 
@@ -28,8 +26,7 @@ namespace TMPro
         /// <summary>
         /// Event delegate triggered when pointer is over a character.
         /// </summary>
-        public CharacterSelectionEvent onCharacterSelection
-        {
+        public CharacterSelectionEvent onCharacterSelection {
             get { return m_OnCharacterSelection; }
             set { m_OnCharacterSelection = value; }
         }
@@ -40,8 +37,7 @@ namespace TMPro
         /// <summary>
         /// Event delegate triggered when pointer is over a sprite.
         /// </summary>
-        public SpriteSelectionEvent onSpriteSelection
-        {
+        public SpriteSelectionEvent onSpriteSelection {
             get { return m_OnSpriteSelection; }
             set { m_OnSpriteSelection = value; }
         }
@@ -52,8 +48,7 @@ namespace TMPro
         /// <summary>
         /// Event delegate triggered when pointer is over a word.
         /// </summary>
-        public WordSelectionEvent onWordSelection
-        {
+        public WordSelectionEvent onWordSelection {
             get { return m_OnWordSelection; }
             set { m_OnWordSelection = value; }
         }
@@ -64,8 +59,7 @@ namespace TMPro
         /// <summary>
         /// Event delegate triggered when pointer is over a line.
         /// </summary>
-        public LineSelectionEvent onLineSelection
-        {
+        public LineSelectionEvent onLineSelection {
             get { return m_OnLineSelection; }
             set { m_OnLineSelection = value; }
         }
@@ -76,8 +70,7 @@ namespace TMPro
         /// <summary>
         /// Event delegate triggered when pointer is over a link.
         /// </summary>
-        public LinkSelectionEvent onLinkSelection
-        {
+        public LinkSelectionEvent onLinkSelection {
             get { return m_OnLinkSelection; }
             set { m_OnLinkSelection = value; }
         }

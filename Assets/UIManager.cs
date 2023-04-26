@@ -1,17 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviourSingleton<UIManager>
-{
+public class UIManager : MonoBehaviourSingleton<UIManager> {
     /// <summary>
     /// Main, Gameplay, Pause, Gameover
     /// </summary>
-    public enum UI_STATE
-    {
+    public enum UI_STATE {
         Main,
         Gameplay,
         Pause,
@@ -37,7 +33,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     private List<TextMeshProUGUI> crystalScreens;
     #endregion
 
-    
+
 
     private List<GameObject> all_ui;
     private void Start()
@@ -47,7 +43,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         bank.OnCrystalsChanged += UpdateCrystals;
         GameManager.Instance.OnStartGame += () => ChangeCurrentUi(0);
-        
+
     }
     /// <summary>
     /// Changes current menu.
@@ -67,13 +63,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         state = (UI_STATE)index;
     }
 
-    
+
     public void ResetGame()
     {
         GameManager.Instance.ResetGame();
         FaderAnimatorController.Instance.FadeIn();
         ChangeCurrentUi(0);
-        
+
     }
 
     private void UpdateCrystals(int value)

@@ -405,7 +405,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 233917138}
-  m_LocalRotation: {x: -0.006769068, y: -0.0000010093642, z: -0.000000006832612, w: 0.9999771}
+  m_LocalRotation: {x: -0.0067690685, y: -0.0000010099019, z: -0.0000000068362507, w: 0.9999771}
   m_LocalPosition: {x: 0.000030059813, y: 1.7784553, z: -2.4661627}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -444,13 +444,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f28f958509e534d905bf3d760d44e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 20
-  deletePoint: -20
+  offset: 16
+  deletePoint: -16
   sectionPrefab: {fileID: 6331112294775080441, guid: 8cc52c7b47568bc449f68fb6bacab8f7, type: 3}
   minSpeed: 5
   maxSpeed: 20
   speedIncrement: 0.1
-  maxSectionCount: 7
+  maxSectionCount: 10
 --- !u!4 &236993274
 Transform:
   m_ObjectHideFlags: 0
@@ -479,10 +479,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laneOffset: 3
-  obstacleTopPrefab: {fileID: 8499114177846063339, guid: 85a49d4afe2256348a4b0d952b499771, type: 3}
-  obstacleBottomPrefab: {fileID: 5567496368643570814, guid: b04bdf7d59dc25547a608ab8bc1e6d5a, type: 3}
-  rampPrefab: {fileID: 8919883579409907710, guid: 4112600d688573d4dae7a7d6d1cb81d9, type: 3}
+  itemSpace: 15
+  itemCountInMap: 5
+  coinsCountInItem: 10
   coinPrefab: {fileID: 8703137858510240721, guid: a91ced1d8af995746b209579e268bc39, type: 3}
+  mapObjects:
+  - {fileID: 11400000, guid: 1b21bf3d1f912304d9871f999cff6979, type: 2}
+  - {fileID: 11400000, guid: 1b21bf3d1f912304d9871f999cff6979, type: 2}
+  - {fileID: 11400000, guid: 2511d89b0c7f4d14dbb162d8abf98d81, type: 2}
+  - {fileID: 11400000, guid: a43fc51bd54b57949a1465afe34b1206, type: 2}
   maps: []
   activeMaps: []
 --- !u!1 &507024424
@@ -660,11 +665,11 @@ Light:
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 1
+  m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
-  m_Range: 10
+  m_Intensity: 1
+  m_Range: 36.875134
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -708,7 +713,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: NaN, z: 1e-45, w: 5.632e-42}
+  m_BoundingSphereOverride: {x: 2.4405384e-30, y: 9.1858e-41, z: 4.591775e-39, w: 4.1003012e-19}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -916,6 +921,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -963,7 +969,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -1023,6 +1029,23 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 6a18cd6cb134e93449c01939919ef91a, type: 2}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &1362353444
 GameObject:
   m_ObjectHideFlags: 0

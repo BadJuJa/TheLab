@@ -1,12 +1,10 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 
-namespace TMPro.Examples
-{
-    
-    public class TeleType : MonoBehaviour
-    {
+namespace TMPro.Examples {
+
+    public class TeleType : MonoBehaviour {
 
 
         //[Range(0, 100)]
