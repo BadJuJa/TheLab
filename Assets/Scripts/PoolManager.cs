@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolManager : MonoBehaviourSingleton<PoolManager> {
-    class Pool {
+
+    private class Pool {
         private List<GameObject> inactive = new();
         private GameObject prefab;
-        public Pool(GameObject prefab) { this.prefab = prefab; }
+
+        public Pool(GameObject prefab)
+        { this.prefab = prefab; }
+
         public GameObject Spawn(Vector3 pos, Quaternion rot)
         {
             GameObject obj;
@@ -32,7 +36,6 @@ public class PoolManager : MonoBehaviourSingleton<PoolManager> {
             inactive.Add(obj);
         }
     }
-
 
     private Dictionary<string, Pool> pools = new();
 

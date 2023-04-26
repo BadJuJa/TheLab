@@ -4,36 +4,29 @@ using UnityEngine.SceneManagement;
 public class FaderAnimatorController : MonoBehaviourSingleton<FaderAnimatorController> {
     public UIManager.UI_STATE state;
 
-    //[SerializeField]
     private Animator faderAnimator;
 
     private void Awake()
     {
         faderAnimator = GetComponent<Animator>();
     }
+
     private void Start()
     {
-        //GameManager.Instance.OnStartGame += FadeIn;
         GameManager.Instance.OnResetGame += FadeIn;
         if (state == UIManager.UI_STATE.Main) SwipeManager.Instance.ClickEvent += (v) => FadeOut();
     }
 
     public void FadeIn()
     {
-        //Time.timeScale = 1f;
         if (faderAnimator.GetBool("IsFading")) return;
         faderAnimator.SetTrigger("Fade_In");
-        //IsFading(1);
-        //faderAnimator.SetBool("IsFading", true);
     }
+
     public void FadeOut()
     {
-        //Time.timeScale = 1f;
-        //print("FADE OUT");
         if (faderAnimator.GetBool("IsFading")) return;
         faderAnimator.SetTrigger("Fade_Out");
-        //IsFading(1);
-        //faderAnimator.SetBool("IsFading", true);
     }
 
     public void FadeTo()
@@ -46,8 +39,6 @@ public class FaderAnimatorController : MonoBehaviourSingleton<FaderAnimatorContr
         {
             UIManager.Instance.ResetGame();
         }
-        //IsFading(0);
-        //faderAnimator.SetBool("IsFading", false);
     }
 
     public void IsFading(int value)

@@ -8,36 +8,20 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator> {
     public int itemCountInMap = 5;
 
     public int coinsCountInItem = 10;
-    float coinsHeight = .5f;
-
-    int mapSize;
+    private float coinsHeight = .5f;
+    private int mapSize;
 
     public enum TrackPos { Left = -1, Center = 0, Right = 1 }
+
     public enum CoinStyle { Line, Jump, Ramp }
 
-    //public GameObject obstacleTopPrefab;
-    //public GameObject obstacleBottomPrefab;
-    //public GameObject rampPrefab;
     public GameObject coinPrefab;
 
     public MapObject[] mapObjects;
     public List<GameObject> maps;
     public List<GameObject> activeMaps;
 
-    //struct MapItem
-    //{
-    //    public void SetValues(GameObject obstacle, TrackPos trackPos, CoinStyle coinStyle)
-    //    {
-    //        this.obstacle = obstacle;
-    //        this.trackPos = trackPos;
-    //        this.coinStyle = coinStyle;
-    //    }
-
-    //    public GameObject obstacle { get; private set; }
-    //    public TrackPos trackPos { get; private set; }
-    //    public CoinStyle coinStyle { get; private set; }
-    //}
-
+  
     private void Awake()
     {
         mapSize = itemCountInMap * itemSpace;
@@ -55,7 +39,6 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator> {
             map.SetActive(false);
         }
     }
-
 
     private void Update()
     {
@@ -78,6 +61,7 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator> {
         maps.Add(activeMaps[0]);
         activeMaps.RemoveAt(0);
     }
+
     private void AddActiveMap()
     {
         int r = Random.Range(0, maps.Count);

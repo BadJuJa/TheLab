@@ -2,16 +2,14 @@ using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    Animator animator;
-    Rigidbody body;
-    CapsuleCollider mainCollider;
-    BoxCollider slideCollider;
-
-    Vector3 startGamePosition;
-    Quaternion startGameRotation;
-
-    float pointStart;
-    float pointFinish;
+    private Animator animator;
+    private Rigidbody body;
+    private CapsuleCollider mainCollider;
+    private BoxCollider slideCollider;
+    private Vector3 startGamePosition;
+    private Quaternion startGameRotation;
+    private float pointStart;
+    private float pointFinish;
     private float laneOffset;
 
     [SerializeField]
@@ -19,8 +17,10 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField]
     private float jumpForce = 10f;
+
     [SerializeField]
     private float jumpGravityBase = -20;
+
     private float jumpGravity => jumpGravityBase * (0.875f + SectionGenerator.Instance.speed / 40f);
 
     private bool isMoving = false;
@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour {
     private float lastVectorX;
 
     private Vector3 defaultGravity = new Vector3(0, -9.81f, 0);
+    private Coroutine moveCoroutine;
 
-    Coroutine moveCoroutine;
     private void Start()
     {
         laneOffset = MapGenerator.Instance.laneOffset;
@@ -59,11 +59,13 @@ public class PlayerController : MonoBehaviour {
         slideCollider.enabled = true;
         mainCollider.enabled = false;
     }
+
     public void EndSlide()
     {
         mainCollider.enabled = true;
         slideCollider.enabled = false;
     }
+
     private void Slide()
     {
         animator.SetTrigger("Slide");
@@ -71,7 +73,6 @@ public class PlayerController : MonoBehaviour {
 
     private void MovePlayer(bool[] swipes)
     {
-
         if (swipes[(int)SwipeManager.Direction.Left] && pointFinish > -laneOffset)
         {
             MoveHorizontal(-laneChangeSpeed);
@@ -94,7 +95,6 @@ public class PlayerController : MonoBehaviour {
             {
                 Slide();
             }
-
         }
     }
 
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour {
         moveCoroutine = StartCoroutine(MoveCoroutine(speed));
     }
 
-    IEnumerator MoveCoroutine(float vectorX)
+    private IEnumerator MoveCoroutine(float vectorX)
     {
         isMoving = true;
         while (Mathf.Abs(pointStart - transform.position.x) < laneOffset)
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour {
         isMoving = false;
     }
 
-    IEnumerator StopJumpCoroutine()
+    private IEnumerator StopJumpCoroutine()
     {
         do
         {

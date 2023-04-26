@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public class DropdownSample : MonoBehaviour {
+
     [SerializeField]
     private TextMeshProUGUI text = null;
 

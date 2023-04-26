@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-
 namespace TMPro.Examples {
 
     public class VertexShakeB : MonoBehaviour {
-
         public float AngleMultiplier = 1.0f;
         public float SpeedMultiplier = 1.0f;
         public float CurveScale = 1.0f;
@@ -13,31 +11,28 @@ namespace TMPro.Examples {
         private TMP_Text m_TextComponent;
         private bool hasTextChanged;
 
-
-        void Awake()
+        private void Awake()
         {
             m_TextComponent = GetComponent<TMP_Text>();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             // Subscribe to event fired when text object has been regenerated.
             TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
         }
 
-
-        void Start()
+        private void Start()
         {
             StartCoroutine(AnimateVertexColors());
         }
 
-
-        void ON_TEXT_CHANGED(Object obj)
+        private void ON_TEXT_CHANGED(Object obj)
         {
             if (obj = m_TextComponent)
                 hasTextChanged = true;
@@ -47,9 +42,8 @@ namespace TMPro.Examples {
         /// Method to animate vertex colors of a TMP Text object.
         /// </summary>
         /// <returns></returns>
-        IEnumerator AnimateVertexColors()
+        private IEnumerator AnimateVertexColors()
         {
-
             // We force an update of the text object since it would only be updated at the end of the frame. Ie. before this code is executed on the first frame.
             // Alternatively, we could yield and wait until the end of the frame when the text object will be generated.
             m_TextComponent.ForceMeshUpdate();
@@ -63,7 +57,7 @@ namespace TMPro.Examples {
 
             while (true)
             {
-                // Allocate new vertices 
+                // Allocate new vertices
                 if (hasTextChanged)
                 {
                     if (copyOfVertices.Length < textInfo.meshInfo.Length)
@@ -92,7 +86,6 @@ namespace TMPro.Examples {
                 // Iterate through each line of the text.
                 for (int i = 0; i < lineCount; i++)
                 {
-
                     int first = textInfo.lineInfo[i].firstCharacterIndex;
                     int last = textInfo.lineInfo[i].lastCharacterIndex;
 
@@ -178,6 +171,5 @@ namespace TMPro.Examples {
                 yield return new WaitForSeconds(0.1f);
             }
         }
-
     }
 }

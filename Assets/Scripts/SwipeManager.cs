@@ -2,27 +2,36 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SwipeManager : MonoBehaviourSingleton<SwipeManager> {
+
     public delegate void SwipeDelegate(bool[] swipes);
+
     public SwipeDelegate SwipeEvent;
 
     public delegate void ClickDelegate(Vector2 position);
+
     public ClickDelegate ClickEvent;
 
     public bool canSendSwipe = false;
 
     public enum Direction { Left, Right, Up, Down };
-    bool[] swipe = new bool[4];
 
-    const float SWIPE_THREASHOLD = 50;
+    private bool[] swipe = new bool[4];
+    private const float SWIPE_THREASHOLD = 50;
+    private Vector2 startTouch;
+    private bool touchMoved;
+    private Vector3 swipeDelta;
 
-    Vector2 startTouch;
-    bool touchMoved;
-    Vector3 swipeDelta;
+    private Vector2 TouchPosition()
+    { return (Vector2)Input.mousePosition; }
 
-    Vector2 TouchPosition() { return (Vector2)Input.mousePosition; }
-    bool TouchBegan() { return Input.GetMouseButtonDown(0); }
-    bool TouchEnded() { return Input.GetMouseButtonUp(0); }
-    bool GetTouch() { return Input.GetMouseButton(0); }
+    private bool TouchBegan()
+    { return Input.GetMouseButtonDown(0); }
+
+    private bool TouchEnded()
+    { return Input.GetMouseButtonUp(0); }
+
+    private bool GetTouch()
+    { return Input.GetMouseButton(0); }
 
     private void Update()
     {

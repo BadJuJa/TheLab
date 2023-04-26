@@ -36,6 +36,7 @@ public sealed class ScreenshotUtility : EditorWindow {
     }
 
     private static string[] aspectList = new string[] { "16:9", "21:9", "32:9" };
+
     private static int AspectRatio {
         get { return EditorPrefs.GetInt(PlayerSettings.productName + "_SRCSHOT_ASPECT", 0); }
         set { EditorPrefs.SetInt(PlayerSettings.productName + "_SRCSHOT_ASPECT", value); }
@@ -57,12 +58,14 @@ public sealed class ScreenshotUtility : EditorWindow {
     }
 
     private static string[] DateFormats = new string[] { "MM-dd-yyyy", "dd-MM-yyyy", "yyyy-MM-dd" };
+
     private static int DateFormat {
         get { return EditorPrefs.GetInt(PlayerSettings.productName + "_SRCSHOT_DateFormat", 1); }
         set { EditorPrefs.SetInt(PlayerSettings.productName + "_SRCSHOT_DateFormat", value); }
     }
 
     private static string[] TimeFormats = new string[] { "24 Hour", "AM-PM" };
+
     private static int TimeFormat {
         get { return EditorPrefs.GetInt(PlayerSettings.productName + "_SRCSHOT_TimeFormat", 0); }
         set { EditorPrefs.SetInt(PlayerSettings.productName + "_SRCSHOT_TimeFormat", value); }
@@ -78,7 +81,7 @@ public sealed class ScreenshotUtility : EditorWindow {
         set { EditorPrefs.SetBool(PlayerSettings.productName + "_SRCSHOT_PRINT_BTN", value); }
     }
 
-    GUIStyle pathField;
+    private GUIStyle pathField;
 
     // Check if folder exists, otherwise create it
     private static string CheckFolderValidity(string targetFolder)
@@ -214,7 +217,7 @@ public sealed class ScreenshotUtility : EditorWindow {
         }
     }
 
-    void SetResolution()
+    private void SetResolution()
     {
         switch (Resolution)
         {
@@ -222,18 +225,22 @@ public sealed class ScreenshotUtility : EditorWindow {
                 ssWidth = 1280;
                 ssHeight = 720;
                 break;
+
             case 1:
                 ssWidth = 1920;
                 ssHeight = 1080;
                 break;
+
             case 2:
                 ssWidth = 2560;
                 ssHeight = 1440;
                 break;
+
             case 3:
                 ssWidth = 3840;
                 ssHeight = 2160;
                 break;
+
             case 4:
                 ssWidth = 7680;
                 ssHeight = 4320;
@@ -249,7 +256,7 @@ public sealed class ScreenshotUtility : EditorWindow {
     private string iconPrefix => EditorGUIUtility.isProSkin ? "d_" : "";
     private readonly Color okColor = new Color(97f / 255f, 255f / 255f, 66f / 255f);
 
-    void OnGUI()
+    private void OnGUI()
     {
         if (cameras.Count == 0)
         {
@@ -590,6 +597,7 @@ public sealed class ScreenshotUtility : EditorWindow {
 
     private class Styles {
         private static GUIStyle _PathField;
+
         public static GUIStyle PathField {
             get {
                 if (_PathField == null)
@@ -638,7 +646,6 @@ public sealed class ScreenshotUtility : EditorWindow {
                 EditorGUILayout.LabelField("Filename example: " + FormatFileName(1, DateFormats[DateFormat]), EditorStyles.miniLabel);
 
                 EditorGUILayout.Space();
-
             },
 
             keywords = new HashSet<string>(new[] { "Screenshot" })

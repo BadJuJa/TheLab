@@ -1,10 +1,13 @@
 using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager> {
+
     public delegate void StartGameDelegate();
+
     public event StartGameDelegate OnStartGame;
 
     public delegate void ResetGameDelegate();
+
     public event ResetGameDelegate OnResetGame;
 
     [SerializeField]

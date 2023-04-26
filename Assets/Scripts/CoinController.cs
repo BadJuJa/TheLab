@@ -1,7 +1,8 @@
 using UnityEngine;
 
 public class CoinController : MonoBehaviour {
-    float rotationSpeed = 100;
+    private float rotationSpeed = 100;
+
     private void Start()
     {
         rotationSpeed += Random.Range(0, rotationSpeed / 4.0f);
